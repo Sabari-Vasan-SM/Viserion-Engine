@@ -4,6 +4,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from PIL import Image
 from rembg import remove
 import io
+import os
+
+# Suppress onnxruntime warnings for missing GPU
+os.environ["OMP_NUM_THREADS"] = "1"
 
 app = FastAPI(title="Viserion API")
 
