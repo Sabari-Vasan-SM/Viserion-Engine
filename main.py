@@ -30,13 +30,14 @@ async def remove_background(file: UploadFile = File(...)):
     and returns the processed image.
     """
     # Lazy load rembg so the server starts up instantly on Render 
-    from rembg import remove
+    from rembg import remove, new_session
 
+    session = new_session('u2net')
     contents = await file.read()
     input_image = Image.open(io.BytesIO(contents))
     
     # Remove background
-    output_image = remove(input_image)
+    output_image = remove(input_image, session=session)
     
     # Save the result into a byte stream
     img_byte_arr = io.BytesIO()
