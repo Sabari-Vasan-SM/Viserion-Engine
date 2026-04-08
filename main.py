@@ -20,6 +20,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def read_root():
+    return {"message": "Viserion API is running"}
+
 @app.post("/remove-background")
 async def remove_background(file: UploadFile = File(...)):
     """
