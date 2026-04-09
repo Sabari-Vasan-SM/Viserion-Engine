@@ -8,6 +8,14 @@ import os
 # Suppress onnxruntime warnings for missing GPU
 os.environ["OMP_NUM_THREADS"] = "1"
 
+# Fix Numba issues on Vercel (where /dev/shm is missing or read-only)
+os.environ["NUMBA_CACHE_DIR"] = "/tmp"
+os.environ["NUMBA_NUM_THREADS"] = "1"
+os.environ["JOBLIB_TEMP_FOLDER"] = "/tmp"
+
+# Ensure u2net models are downloaded to a writable temp directory in Vercel
+os.environ["U2NET_HOME"] = "/tmp/u2net"
+
 app = FastAPI(title="Viserion API")
 
 # Setup CORS to allow React frontend (running on localhost:5173 or similar depending on Vite)
